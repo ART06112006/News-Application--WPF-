@@ -1,4 +1,7 @@
-﻿using System.Text;
+﻿using NewsAPI;
+using NewsAPI.Constants;
+using NewsAPI.Models;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
