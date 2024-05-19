@@ -21,7 +21,7 @@ namespace NewsApp.Services
             ExceptionMessage = exceptionMessage;
         }
 
-        public async Task<(int, List<Article>)> GetArticlesAsync(string searchedText, DateTime fromDate, DateTime toDate, SortBys sortBy = SortBys.Relevancy, Languages lang = Languages.EN, int articalesNumber = 25)
+        public async Task<List<Article>?> GetArticlesAsync(string searchedText, DateTime fromDate, DateTime toDate, SortBys sortBy = SortBys.Relevancy, Languages lang = Languages.EN, int articalesNumber = 25)
         {
             var newsApiClient = new NewsApiClient(_apiKey);
 
@@ -37,12 +37,12 @@ namespace NewsApp.Services
 
             if (articlesResponse.Status == Statuses.Ok)
             {
-                return (articlesResponse.TotalResults, articlesResponse.Articles);
+                return articlesResponse.Articles;
             }
             else
             {
                 ExceptionMessage.Invoke(articlesResponse.Error.Message);
-                return (0, null);
+                return null;
             }
         }
     }

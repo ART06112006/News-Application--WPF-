@@ -1,5 +1,6 @@
 ﻿using NewsApp.Infrastructure;
 using NewsApp.Services;
+using NewsApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
