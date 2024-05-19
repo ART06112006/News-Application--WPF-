@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using NewsApp.Commands;
 using NewsApp.Services;
+using NewsApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -18,6 +20,19 @@ namespace NewsApp.Infrastructure
 
             //Services
             services.AddSingleton<ArticleService>();
+
+            //Views
+            services.AddTransient<MainView>();
+            services.AddTransient<ShowArticleView>();
+
+            //ModelViews
+            services.AddTransient<MainViewModel>();
+            services.AddTransient<ShowArticleViewModel>();
+
+            //Commands
+            services.AddTransient<SearchArticlesCommand>();
+            services.AddTransient<ChangeShowArticleViewModelCommand>();
+            services.AddTransient<ExitShowArticleViewCommand>();
 
             ServiceProvider = services.BuildServiceProvider();
         }
