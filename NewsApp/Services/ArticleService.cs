@@ -25,7 +25,7 @@ namespace NewsApp.Services
         {
             var newsApiClient = new NewsApiClient(_apiKey);
 
-            var articlesResponse = newsApiClient.GetEverything(new EverythingRequest
+            var articlesResponse = await newsApiClient.GetEverythingAsync(new EverythingRequest
             {
                 Q = searchedText,
                 SortBy = sortBy,
