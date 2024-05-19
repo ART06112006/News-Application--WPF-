@@ -1,4 +1,5 @@
-﻿using NewsApp.Infrastructure;
+﻿using NewsAPI.Models;
+using NewsApp.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace NewsApp.Commands
         public override void Execute(object parameter)
         {
             var view = (ShowArticleView)(AppServiceProvider.ServiceProvider.GetService(typeof(ShowArticleView)));
+            view.ViewModel.Article = parameter as Article;
             view.ShowDialog();
         }
     }
