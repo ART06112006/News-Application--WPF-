@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using NewsApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -15,7 +16,8 @@ namespace NewsApp.Infrastructure
         {
             var services = new ServiceCollection();
 
-            
+            //Services
+            services.AddSingleton<ArticleService>();
 
             ServiceProvider = services.BuildServiceProvider();
         }

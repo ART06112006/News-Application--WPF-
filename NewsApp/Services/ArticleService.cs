@@ -21,7 +21,7 @@ namespace NewsApp.Services
             ExceptionMessage = exceptionMessage;
         }
 
-        public async Task<(int, List<Article>)> GetArticalsAsync(string searchedText, DateTime fromDate, DateTime toDate, int articalesNumber = 25, SortBys sortBy = SortBys.Relevancy, Languages lang = Languages.EN)
+        public async Task<(int, List<Article>)> GetArticlesAsync(string searchedText, DateTime fromDate, DateTime toDate, SortBys sortBy = SortBys.Relevancy, Languages lang = Languages.EN, int articalesNumber = 25)
         {
             var newsApiClient = new NewsApiClient(_apiKey);
 
