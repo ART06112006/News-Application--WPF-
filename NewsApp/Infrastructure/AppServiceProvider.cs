@@ -2,6 +2,7 @@
 using NewsApp.Commands;
 using NewsApp.Services;
 using NewsApp.ViewModels;
+using NewsApp.Views;
 using System;
 using System.Collections.Generic;
 using System.Configuration;

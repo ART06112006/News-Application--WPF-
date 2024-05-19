@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NewsApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,7 @@ namespace NewsApp.Views
     /// </summary>
     public partial class ShowArticleView : Window
     {
+        public ShowArticleViewModel ViewModel { get; set; }
         public ShowArticleView()
         {
             InitializeComponent();
