@@ -21,9 +21,12 @@ namespace NewsApp.Views
     public partial class ShowArticleView : Window
     {
         public ShowArticleViewModel ViewModel { get; set; }
-        public ShowArticleView()
+        public ShowArticleView(ShowArticleViewModel showArticleView)
         {
             InitializeComponent();
+            ViewModel= showArticleView;
+            DataContext= ViewModel;
+            ViewModel.CloseView = () => { this.Close(); };
         }
     }
 }

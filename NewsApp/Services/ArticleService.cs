@@ -6,20 +6,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace NewsApp.Services
 {
     public class ArticleService
     {
-        private readonly string _apiKey;
-        private Action<string> ExceptionMessage;
+        public string _apiKey;
+        public Action<string> ExceptionMessage;
 
 
-        public ArticleService(string apiKey, Action<string> exceptionMessage)
-        {
-            _apiKey = apiKey;
-            ExceptionMessage = exceptionMessage;
-        }
+        //public ArticleService(string apiKey, Action<string> exceptionMessage)
+        //{
+        //    _apiKey = apiKey;
+        //    ExceptionMessage = exceptionMessage;
+        //}
 
         public async Task<List<Article>?> GetArticlesAsync(string searchedText, DateTime fromDate, DateTime toDate, SortBys sortBy = SortBys.Relevancy, Languages lang = Languages.EN, int articalesNumber = 25)
         {

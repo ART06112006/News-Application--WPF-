@@ -4,9 +4,12 @@ using NewsApp.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace NewsApp.ViewModels
@@ -108,11 +111,37 @@ namespace NewsApp.ViewModels
             }
         }
 
-        public ICommand SearchCommand { get; private set; }
+        private List<SortBys> _sortParametrs;
+        public List<SortBys> SortParametrs
+        {
+            get { return _sortParametrs; }
+            set
+            {
+                _sortParametrs = value;
+                OnPropertyChanged();
+            }
+        }
 
-        public MainViewModel(SearchArticlesCommand searchArticlesCommand)
+        private List<Languages> _languages;
+        public List<Languages> LanguageOptions
+        {
+            get { return _languages; }
+            set
+            {
+                _languages = value;
+            }
+        }
+
+        public ICommand SearchCommand { get; private set; }
+        public ICommand ShowMoreInfo { get; private set; }
+
+        public MainViewModel(SearchArticlesCommand searchArticlesCommand, ChangeShowArticleViewModelCommand changeShowArticleView)
         {
             SearchCommand = searchArticlesCommand;
+            ShowMoreInfo = changeShowArticleView;
+            SortParametrs = new List<SortBys>(Enum.GetValues(typeof(SortBys)) as SortBys[]);
+            LanguageOptions = new List<Languages>(Enum.GetValues(typeof(Languages)) as Languages[]);
+            Lang = Languages.EN;
         }
 
         public void UpdateUI(List<Article> articles)
