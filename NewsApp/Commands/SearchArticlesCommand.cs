@@ -17,11 +17,14 @@ namespace NewsApp.Commands
 
             if (viewModel != null)
             {
-                var articleService = (ArticleService)(AppServiceProvider.ServiceProvider.GetService(typeof(ArticleService)));
-                
-                var result = await articleService.GetArticlesAsync(viewModel.SearchedText, viewModel.FromDate, viewModel.ToDate, viewModel.SortBy, viewModel.Lang);
+                if (!string.IsNullOrEmpty(viewModel.SearchedText))
+                {
+                    var articleService = (ArticleService)(AppServiceProvider.ServiceProvider.GetService(typeof(ArticleService)));
 
-                viewModel.UpdateUI(result);
+                    var result = await articleService.GetArticlesAsync(viewModel.SearchedText, viewModel.FromDate, viewModel.ToDate, viewModel.SortBy, viewModel.Lang);
+
+                    viewModel.UpdateUI(result);
+                }
             }
         }
     }

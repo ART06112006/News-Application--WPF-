@@ -12,8 +12,8 @@ namespace NewsApp.Services
 {
     public class ArticleService
     {
-        public string _apiKey;
-        public Action<string> ExceptionMessage;
+        public string APIKey { get; set; }
+        public Action<string> ExceptionMessage { get; set; }
 
 
         //public ArticleService(string apiKey, Action<string> exceptionMessage)
@@ -22,9 +22,9 @@ namespace NewsApp.Services
         //    ExceptionMessage = exceptionMessage;
         //}
 
-        public async Task<List<Article>?> GetArticlesAsync(string searchedText, DateTime fromDate, DateTime toDate, SortBys sortBy = SortBys.Relevancy, Languages lang = Languages.EN, int articalesNumber = 25)
+        public async Task<List<Article>?> GetArticlesAsync(string searchedText, DateTime fromDate, DateTime toDate, SortBys sortBy = SortBys.Relevancy, Languages lang = Languages.EN, int articalesNumber = 100)
         {
-            var newsApiClient = new NewsApiClient(_apiKey);
+            var newsApiClient = new NewsApiClient(APIKey);
 
             var articlesResponse = await newsApiClient.GetEverythingAsync(new EverythingRequest
             {
@@ -38,7 +38,30 @@ namespace NewsApp.Services
 
             if (articlesResponse.Status == Statuses.Ok)
             {
-                return articlesResponse.Articles;
+                var result = new List<Article>();
+                for (int i = 0; i < articlesResponse.Articles.Count; i++)
+                {
+                    if (articlesResponse.Articles[i].Content != "[Removed]" && articlesResponse.Articles[i].Title != "[Removed]" && articlesResponse.Articles[i].Description != "[Removed]")
+                    {
+                        if (string.IsNullOrEmpty(articlesResponse.Articles[i].Author))
+                        {
+                            articlesResponse.Articles[i].Author = "Unknown author";
+                        }
+
+                        if (string.IsNullOrEmpty(articlesResponse.Articles[i].Source.Name))
+                        {
+                            articlesResponse.Articles[i].Source.Name = "Unknown source";
+                        }
+
+                        if (string.IsNullOrEmpty(articlesResponse.Articles[i].UrlToImage))
+                        {
+                            articlesResponse.Articles[i].UrlToImage = "../Images/NotFoundImage.png";
+                        }
+
+                        result.Add(articlesResponse.Articles[i]);
+                    }
+                }   
+                return result;
             }
             else
             {

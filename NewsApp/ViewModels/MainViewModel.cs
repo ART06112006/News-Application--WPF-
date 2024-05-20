@@ -146,7 +146,15 @@ namespace NewsApp.ViewModels
 
         public void UpdateUI(List<Article> articles)
         {
-            Articles = new ObservableCollection<Article>(articles);
+            try
+            {
+                Articles = new ObservableCollection<Article>(articles);
+            }
+            catch
+            {
+                Articles = new ObservableCollection<Article>();
+            }
+
             ResultsCount = Articles.Count;
         }
     }
