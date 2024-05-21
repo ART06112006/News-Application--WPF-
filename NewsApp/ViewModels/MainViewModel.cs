@@ -142,6 +142,8 @@ namespace NewsApp.ViewModels
             SortParametrs = new List<SortBys>(Enum.GetValues(typeof(SortBys)) as SortBys[]);
             LanguageOptions = new List<Languages>(Enum.GetValues(typeof(Languages)) as Languages[]);
             Lang = Languages.EN;
+            FromDate = DateTime.Now.AddMonths(-1);
+            ToDate = DateTime.Now;
         }
 
         public void UpdateUI(List<Article> articles)

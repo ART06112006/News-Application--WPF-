@@ -24,8 +24,8 @@ namespace NewsApp.Views
         public ShowArticleView(ShowArticleViewModel showArticleView)
         {
             InitializeComponent();
-            ViewModel= showArticleView;
-            DataContext= ViewModel;
+            ViewModel = showArticleView;
+            DataContext = ViewModel;
         }
     }
 }
