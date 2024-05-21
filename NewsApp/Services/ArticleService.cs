@@ -4,9 +4,12 @@ using NewsAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
 
 namespace NewsApp.Services
 {
@@ -17,48 +20,64 @@ namespace NewsApp.Services
 
         public async Task<List<Article>?> GetArticlesAsync(string searchedText, DateTime fromDate, DateTime toDate, SortBys sortBy = SortBys.Relevancy, Languages lang = Languages.EN, int articalesNumber = 100)
         {
-            var newsApiClient = new NewsApiClient(APIKey);
-
-            var articlesResponse = await newsApiClient.GetEverythingAsync(new EverythingRequest
+            try
             {
-                Q = searchedText,
-                SortBy = sortBy,
-                Language = lang,
-                From = fromDate,
-                To = toDate,
-                PageSize = articalesNumber
-            });
+                var newsApiClient = new NewsApiClient(APIKey);
 
-            if (articlesResponse.Status == Statuses.Ok)
-            {
-                var result = new List<Article>();
-                for (int i = 0; i < articlesResponse.Articles.Count; i++)
+                var articlesResponse = await newsApiClient.GetEverythingAsync(new EverythingRequest
                 {
-                    if (articlesResponse.Articles[i].Content != "[Removed]" && articlesResponse.Articles[i].Title != "[Removed]" && articlesResponse.Articles[i].Description != "[Removed]")
+                    Q = searchedText,
+                    SortBy = sortBy,
+                    Language = lang,
+                    From = fromDate,
+                    To = toDate,
+                    PageSize = articalesNumber
+                });
+
+                if (articlesResponse.Status == Statuses.Ok)
+                {
+                    return await Task.Run(() =>
                     {
-                        if (string.IsNullOrEmpty(articlesResponse.Articles[i].Author))
+                        var result = new List<Article>();
+                        for (int i = 0; i < articlesResponse.Articles.Count; i++)
                         {
-                            articlesResponse.Articles[i].Author = "Unknown author";
-                        }
+                            if (articlesResponse.Articles[i].Content != "[Removed]" && articlesResponse.Articles[i].Title != "[Removed]" && articlesResponse.Articles[i].Description != "[Removed]")
+                            {
+                                if (string.IsNullOrEmpty(articlesResponse.Articles[i].Author))
+                                {
+                                    articlesResponse.Articles[i].Author = "Unknown author";
+                                }
 
-                        if (string.IsNullOrEmpty(articlesResponse.Articles[i].Source.Name))
-                        {
-                            articlesResponse.Articles[i].Source.Name = "Unknown source";
-                        }
+                                if (string.IsNullOrEmpty(articlesResponse.Articles[i].Source.Name))
+                                {
+                                    articlesResponse.Articles[i].Source.Name = "Unknown source";
+                                }
 
-                        if (string.IsNullOrEmpty(articlesResponse.Articles[i].UrlToImage))
-                        {
-                            articlesResponse.Articles[i].UrlToImage = "../Images/NotFoundImage.png";
-                        }
+                                if (string.IsNullOrEmpty(articlesResponse.Articles[i].UrlToImage))
+                                {
+                                    articlesResponse.Articles[i].UrlToImage = "../Images/NotFoundImage.png";
+                                }
 
-                        result.Add(articlesResponse.Articles[i]);
-                    }
-                }   
-                return result;
+                                result.Add(articlesResponse.Articles[i]);
+                            }
+                        }
+                        return result;
+                    });
+                }
+                else
+                {
+                    ExceptionMessage?.Invoke(articlesResponse.Error.Message);
+                    return null;
+                }
             }
-            else
+            catch (HttpRequestException ex)
             {
-                ExceptionMessage.Invoke(articlesResponse.Error.Message);
+                ExceptionMessage?.Invoke("Unable to complete the request! Please, check your internet connection.");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                ExceptionMessage?.Invoke(ex.Message);
                 return null;
             }
         }
