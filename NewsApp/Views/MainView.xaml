@@ -140,7 +140,14 @@
                 <DataTemplate>
                     <Grid Margin="20" Width="200">
 
-                        <Border BorderThickness="3">
+                        <Border BorderThickness="3" CornerRadius="10">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Color="Blue" Offset="0.2"/>
+                                    <GradientStop Color="BlueViolet" Offset="0.5"/>
+                                    <GradientStop Color="Red" Offset="0.9"/>
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="auto"/>
@@ -148,7 +155,7 @@
                                     <RowDefinition Height="auto"/>
                                 </Grid.RowDefinitions>
 
-                                <Image Source="{Binding UrlToImage}" Width="auto" Height="auto" Margin="4" Grid.Row="0"/>
+                                <Image Source="{Binding UrlToImage}" Width="auto" Height="auto" Margin="5" Grid.Row="0"/>
                                 <TextBlock Text="{Binding Title}" TextWrapping="Wrap" FontSize="17" FontWeight="Bold" Foreground="White" VerticalAlignment="Bottom" Grid.Row="1" Margin="5,0,0,0"/>
 
                                 <!--<Button Content="show more" Height="25" Width="75" HorizontalAlignment="Right" Foreground="White"
@@ -156,7 +163,7 @@
 
                                     <!--<Button Content="show more" Command="{Binding DataContext.ShowMoreInfo, RelativeSource={RelativeSource AncestorType={x:Type local:MainView}}}">-->
 
-                                <Button Content="Show more" Height="25" Width="75" HorizontalAlignment="Right" Foreground="White" Grid.Row="2"
+                                <Button Content="Show more" Height="25" Width="75" HorizontalAlignment="Right" Foreground="White" Grid.Row="2" Margin="5"
                                         Command="{Binding DataContext.ShowMoreInfo, RelativeSource={RelativeSource AncestorType={x:Type local:MainView}}}" CommandParameter="{Binding}">
                                     <Button.Background>
                                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
