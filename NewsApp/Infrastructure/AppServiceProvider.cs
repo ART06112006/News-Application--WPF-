@@ -33,7 +33,6 @@ namespace NewsApp.Infrastructure
             //Commands
             services.AddTransient<SearchArticlesCommand>();
             services.AddTransient<ChangeShowArticleViewModelCommand>();
-            services.AddTransient<ExitShowArticleViewCommand>();
 
             ServiceProvider = services.BuildServiceProvider();
         }

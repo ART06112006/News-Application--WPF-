@@ -26,7 +26,6 @@ namespace NewsApp.Views
             InitializeComponent();
             ViewModel= showArticleView;
             DataContext= ViewModel;
-            ViewModel.CloseView = () => { this.Close(); };
         }
     }
 }

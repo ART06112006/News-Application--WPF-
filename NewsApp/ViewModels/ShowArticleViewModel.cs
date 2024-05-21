@@ -21,13 +21,5 @@ namespace NewsApp.ViewModels
                 OnPropertyChanged();
             }
         }
-
-        public ICommand ExitCommand { get; private set; }
-        public Action CloseView { get; set; }
-
-        public ShowArticleViewModel(ExitShowArticleViewCommand exitShowArticleViewCommand)
-        {
-            ExitCommand = exitShowArticleViewCommand;
-        }
     }
 }
