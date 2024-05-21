@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NewsApp.Views"
         mc:Ignorable="d"
-        Title="MainView" Height="490" Width="800">
+        Title="News" Height="490" Width="800" MinWidth="700"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -78,16 +79,25 @@
             </WrapPanel>
         </Grid>
 
-        <WrapPanel Grid.Row="1" Margin="0,10,0,0">
-            <Label Content="From date : " Margin="5,0,0,0" FontWeight="Bold" FontSize="13" Foreground="White"/>
-            <DatePicker SelectedDate="{Binding FromDate, UpdateSourceTrigger=PropertyChanged}" Width="110" Background="Transparent" BorderThickness="0"/>
+        <Grid Grid.Row="1" Margin="0,10,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="0.12*"/>
+            </Grid.ColumnDefinitions>
 
-            <Label Content="To date : " Margin="5,0,0,0" FontWeight="Bold" FontSize="13" Foreground="White"/>
-            <DatePicker SelectedDate="{Binding ToDate, UpdateSourceTrigger=PropertyChanged}" Width="110" BorderThickness="0"/>
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <Label Content="From date : " Margin="5,0,0,0" FontWeight="Bold" FontSize="13" Foreground="White"/>
+                <DatePicker SelectedDate="{Binding FromDate, UpdateSourceTrigger=PropertyChanged}" Width="110" Background="Transparent" BorderThickness="0"/>
 
-            <Label Content="Results :" Margin="280,0,0,0" Foreground="White" FontSize="13" FontWeight="Bold"/>
-            <Label Content="{Binding ResultsCount, UpdateSourceTrigger=PropertyChanged}" FontSize="13" Foreground="Green" FontWeight="Bold"/>
-        </WrapPanel>
+                <Label Content="To date : " Margin="5,0,0,0" FontWeight="Bold" FontSize="13" Foreground="White"/>
+                <DatePicker SelectedDate="{Binding ToDate, UpdateSourceTrigger=PropertyChanged}" Width="110" BorderThickness="0"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Label Content="Results :" Foreground="White" FontSize="13" FontWeight="Bold"/>
+                <Label Content="{Binding ResultsCount, UpdateSourceTrigger=PropertyChanged}" FontSize="13" Foreground="LightGreen" FontWeight="Bold"/>
+            </StackPanel>
+        </Grid>
 
         <!--<ItemsControl ItemsSource="{Binding Articles, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Grid.Row="2" >
             <ItemsControl.ItemsPanel>
@@ -139,7 +149,7 @@
                                 </Grid.RowDefinitions>
 
                                 <Image Source="{Binding UrlToImage}" Width="auto" Height="auto" Margin="4" Grid.Row="0"/>
-                                <TextBlock Text="{Binding Title}" FontSize="17" FontWeight="Bold" Foreground="White" VerticalAlignment="Bottom" Grid.Row="1" Margin="5,0,0,0"/>
+                                <TextBlock Text="{Binding Title}" TextWrapping="Wrap" FontSize="17" FontWeight="Bold" Foreground="White" VerticalAlignment="Bottom" Grid.Row="1" Margin="5,0,0,0"/>
 
                                 <!--<Button Content="show more" Height="25" Width="75" HorizontalAlignment="Right" Foreground="White"
                                         Command="{Binding ShowMoreInfo}" CommandParameter="{Binding}" Grid.Row="2">-->

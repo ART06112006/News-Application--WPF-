@@ -15,13 +15,6 @@ namespace NewsApp.Services
         public string APIKey { get; set; }
         public Action<string> ExceptionMessage { get; set; }
 
-
-        //public ArticleService(string apiKey, Action<string> exceptionMessage)
-        //{
-        //    _apiKey = apiKey;
-        //    ExceptionMessage = exceptionMessage;
-        //}
-
         public async Task<List<Article>?> GetArticlesAsync(string searchedText, DateTime fromDate, DateTime toDate, SortBys sortBy = SortBys.Relevancy, Languages lang = Languages.EN, int articalesNumber = 100)
         {
             var newsApiClient = new NewsApiClient(APIKey);
